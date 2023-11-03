@@ -10,6 +10,17 @@ void Encrypt(const char *filename){
     int c;
     while((c = fgetc(inputfile)) != EOF){ //reads each character in file until the end of the file is reached
         //encryption code here
+        if(c == 9){
+            fputc('TT', outputfile); //transforms <tab> into TT
+        } else {
+            //carriage return leave as is
+        } else{
+            int outChar = c - 16; // transform to hex (encrypt)
+            if(outChar < 32){
+                outChar = (outChar - 32) + 144;
+            }
+        }
+        fprintf(outputfile, "%02X", outChar); //writes as 2 digit hexadecimal value
     }
     fclose(inputfile); //closes files
     fclose(outputfile);
